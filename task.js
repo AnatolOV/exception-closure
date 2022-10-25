@@ -11,3 +11,14 @@ function parseCount(str){
 }
 let obj = '21';
 console.log(parseCount(obj));
+
+function validateCount(str) {
+  let res = parseCount(str);
+  
+  if (!isNaN(res)){
+    return res;
+  } else {
+    return 'Невалидное значение';
+ }
+                         
+  }
