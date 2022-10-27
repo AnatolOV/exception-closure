@@ -24,7 +24,7 @@ class Triangle {
     this.b = b;
     this.c = c;
     if (a + b < c || a + c < b || b + c < a) {
-      throw new Error('Треугольник с такими сторонами не существует"');
+      throw new Error("Треугольник с такими сторонами не существует");
     }
   }
 
@@ -42,27 +42,21 @@ class Triangle {
     );
   }
 }
-let g = new Triangle(3, 2, 2);
-console.log(g.getPerimeter());
-console.log(g.getArea());
+
 
 function getTriangle(a, b, c) {
   try {
     return new Triangle(a, b, c);
   } catch (error) {
     let ob = {};
-    ob.getArea = function (a, b, c) {
-      /*let perimetrHalf = (a + b + c) / 2;
-      let S = Math.sqrt(perimetrHalf * (perimetrHalf - a) * (perimetrHalf - b) * (perimetrHalf - c)); */
+    ob.getArea = function () {
       return "Ошибка! Треугольник не существует";
     };
-    ob.getPerimetr = function (a, b, c) {
-      /*let perim = a + b + c;
-      return perim;*/
+    ob.getPerimeter = function () {
       return "Ошибка! Треугольник не существует";
     };
 
     return ob;
   }
 }
-console.log(getTriangle(12, 2, 2));
+
