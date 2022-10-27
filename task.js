@@ -2,8 +2,7 @@ function parseCount(str) {
   let result = Number.parseInt(str);
 
   if (isNaN(result)) {
-    console.log("Невалидное значение");
-    //throw 'Невалидное значение'; //  ???почему с throw  не выводится 'Невалидное значение'???
+    throw new Error("Невалидное значение");
   }
   return result;
 }
@@ -12,8 +11,7 @@ console.log(parseCount(obj));
 
 function validateCount(str) {
   try {
-    let res = parseCount(str);
-    return res;
+    return parseCount(str);
   } catch (error) {
     return error;
   }
@@ -25,49 +23,46 @@ class Triangle {
     this.a = a;
     this.b = b;
     this.c = c;
+    if (a + b < c || a + c < b || b + c < a) {
+      throw new Error('Треугольник с такими сторонами не существует"');
+    }
   }
-  /*if ((this.a + this.b) < this.c || (this.a + this.c) < this.b || (this.b + this.c) < this.a){
-    throw "Треугольник с такими сторонами не существует";
-  }//    ??? Что у меня не верно записано в if(...)???     */
+
   getPerimeter() {
-    this.perim = this.a + this.b + this.c;
-    return this.perim;
+    return this.a + this.b + this.c;
   }
   getArea() {
-    this.p = this.perim / 2;
-    this.S = Math.sqrt(
-      this.p * (this.p - this.a) * (this.p - this.b) * (this.p - this.c)
+    return Number(
+      Math.sqrt(
+        (this.getPerimeter() / 2) *
+          (this.getPerimeter() / 2 - this.a) *
+          (this.getPerimeter() / 2 - this.b) *
+          (this.getPerimeter() / 2 - this.c)
+      ).toFixed(3)
     );
-    console.log(Number(this.S.toFixed(3)));
   }
 }
-
-let g = new Triangle(2, 2, 2);
-g.getPerimeter();
+let g = new Triangle(3, 2, 2);
+console.log(g.getPerimeter());
 console.log(g.getArea());
 
 function getTriangle(a, b, c) {
   try {
-    let dw = new Triangle(a, b, c);
-
-    return dw;
+    return new Triangle(a, b, c);
   } catch (error) {
     let ob = {};
     ob.getArea = function (a, b, c) {
-      let perimetrHalf = (a + b + c) / 2;
-      let S = Math.sqrt(
-        perimetrHalf *
-          (perimetrHalf - a) *
-          (perimetrHalf - b) *
-          (perimetrHalf - c)
-      );
+      /*let perimetrHalf = (a + b + c) / 2;
+      let S = Math.sqrt(perimetrHalf * (perimetrHalf - a) * (perimetrHalf - b) * (perimetrHalf - c)); */
+      return "Ошибка! Треугольник не существует";
     };
     ob.getPerimetr = function (a, b, c) {
-      let perim = a + b + c;
-      return perim;
+      /*let perim = a + b + c;
+      return perim;*/
+      return "Ошибка! Треугольник не существует";
     };
 
     return ob;
   }
 }
-console.log(getTriangle(2, 2, 2));
+console.log(getTriangle(12, 2, 2));
